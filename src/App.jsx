@@ -57,7 +57,7 @@ export default function App() {
   const [languages, setLanguages] = useState([]);
 
   useEffect(() => {
-    Papa.parse("/PaivakotiKielet.csv", {
+    Papa.parse(`${process.env.PUBLIC_URL}/PaivakotiKielet.csv`, {
       download: true,
       header: true,
       skipEmptyLines: true,
