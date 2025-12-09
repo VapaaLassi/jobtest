@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
+import Select from 'react-select';
 import './App.css'
-
 
 function RegionText({ dataRow }) {
   const all = dataRow.all;
   const foreign = dataRow.foreign;
+  const region = dataRow.region;
   var percentage = new Intl.NumberFormat('default', {
     style: 'percent',
     minimumFractionDigits: 2,
@@ -15,21 +16,26 @@ function RegionText({ dataRow }) {
 
   return (
     <p>
-      {dataRow.kunta}n {all}:sta varhaiskasvatukseen osallistuneesta lapsesta {foreign} ({percentage}) oli vieraskielisiä vuonna 2024.
+      {region}n {all}:sta varhaiskasvatukseen osallistuneesta lapsesta {foreign} ({percentage}) oli vieraskielisiä vuonna 2024.
     </p>);
 }
 
 function FilteredRegion({ languages }) {
+  const [selectedRegion, setSelectedRegion] = useState('');
+  const handleRegionChange = (option) => {
+    setSelectedRegion(option?.value || '');
+  };
+
   return (
     <>
-      <div>
-      </div>
       <h1>Päiväkotien kielitaustakone</h1>
       <div>
-        <RegionText
-          dataRow={languages[0]} />
+        <h4>Valitse kunta:</h4>
+        <Select options={languages} onChange={handleRegionChange} />
       </div>
-
+      <div>
+        <RegionText dataRow={selectedRegion} />
+      </div>
     </>
   );
 }
@@ -39,12 +45,12 @@ function App() {
 }
 
 const LANGUAGES = [
-  { kunta: "Akaa", all: 552, foreign: 14 },
-  { kunta: "Espoo", all: 16928, foreign: 4959 },
-  { kunta: "Helsinki", all: 30870, foreign: 7313 },
-  { kunta: "Forssa", all: 529, foreign: 105 },
-  { kunta: "Hämeenlinna", all: 2700, foreign: 308 },
-  { kunta: "Kempele", all: 1331, foreign: 6 },
+  { label: "Akaa", value: {region: "Akaa", all: 552, foreign: 14 }},
+  { label: "Espoo", value: {region: "Espoo", all: 16928, foreign: 4959 }},
+  { label: "Helsinki", value: {region: "Helsinki", all: 30870, foreign: 7313 }},
+  { label: "Forssa", value: {region: "Forssa", all: 529, foreign: 105 }},
+  { label: "Hämeenlinna", value: {region: "Hämeenlinna", all: 2700, foreign: 308 }},
+  { label: "Kempele", value: {region: "Kempele", all: 1331, foreign: 6 }},
 ];
 
 const FOREIGN_AVG = 13.91;
