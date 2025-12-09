@@ -13,10 +13,20 @@ function RegionText({ dataRow }) {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   }).format(foreign / all);;
+  var difference = new Intl.NumberFormat('default', {
+    style: 'percent',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(Math.abs(foreign / all - FOREIGN_AVG / 100));
 
   return (
     <p>
       {region}n {all}:sta varhaiskasvatukseen osallistuneesta lapsesta {foreign} ({percentage}) oli vieraskielisiä vuonna 2024.
+
+      <p>
+        {console.log(foreign / all)}
+      Tämä on {difference} {foreign / all > (FOREIGN_AVG / 100) ? 'enemmän' : 'vähemmän'} kuin koko maan keskiarvo, joka on {FOREIGN_AVG}%.
+      </p>
     </p>);
 }
 
@@ -31,7 +41,7 @@ function FilteredRegion({ languages }) {
       <h1>Päiväkotien kielitaustakone</h1>
       <div>
         <h4>Valitse kunta:</h4>
-        <Select options={languages} onChange={handleRegionChange} />
+        <Select className='kuntavalinta' options={languages} onChange={handleRegionChange} />
       </div>
       <div>
         <RegionText dataRow={selectedRegion} />
