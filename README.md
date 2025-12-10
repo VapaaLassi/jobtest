@@ -9,3 +9,6 @@ Pyörii osoitteessa https://vapaalassi.github.io/jobtest/ (Voi joutua päivittä
 <img width="700" height="328" alt="image" src="https://github.com/user-attachments/assets/4976c2d9-7ca7-49dd-a5b3-425bd78f34bd" />
 
 Visualisointiin en päässyt oikein ollenkaan käsiksi aikarajassa, mutta suuntaa-antavalla kuvalla varmasti voisi aiheesta keskustella ja päästä eteenpäin.
+
+## Kuvankaappaus pylväsdiagrammin lisäämisen jälkeen
+<img width="1348" height="875" alt="image" src="https://github.com/user-attachments/assets/c4a52721-308f-499d-be42-748bd5fe1cea" />
