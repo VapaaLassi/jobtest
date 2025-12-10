@@ -2,8 +2,14 @@ import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import Select from 'react-select';
+import ReactDOM from "react-dom";
+import { createRoot } from 'react-dom/client';
 import Papa from 'papaparse';
+import { data } from "./data/";
+import { Barplot } from "./Barplot";
 import './App.css'
+
+const FOREIGN_AVG = 13.91;
 
 function RegionText({ dataRow }) {
   const all = dataRow.all;
@@ -23,13 +29,13 @@ function RegionText({ dataRow }) {
   return (
     <div>
       <h3>{region}</h3>
-    <p>
-      {all}:sta varhaiskasvatukseen osallistuneesta lapsesta {foreign} ({percentage}) oli vieraskielisiä vuonna 2024.
-
       <p>
-        Tämä on {difference} {foreign / all > (FOREIGN_AVG / 100) ? 'enemmän' : 'vähemmän'} kuin koko maan keskiarvo, joka on {FOREIGN_AVG}%.
+        {all}:sta varhaiskasvatukseen osallistuneesta lapsesta {foreign} ({percentage}) oli vieraskielisiä vuonna 2024.
+
+        <p>
+          Tämä on {difference} {foreign / all > (FOREIGN_AVG / 100) ? 'enemmän' : 'vähemmän'} kuin koko maan keskiarvo, joka on {FOREIGN_AVG}%.
+        </p>
       </p>
-    </p>
     </div>);
 }
 
@@ -48,6 +54,9 @@ function FilteredRegion({ languages }) {
       </div>
       <div>
         <RegionText dataRow={selectedRegion} />
+      </div>
+      <div>
+        <Barplot data={data} width={1200} height={400} highlightedRegion={selectedRegion.region} />
       </div>
     </>
   );
@@ -87,5 +96,3 @@ export default function App() {
 //   { label: "Hämeenlinna", value: { region: "Hämeenlinna", all: 2700, foreign: 308 } },
 //   { label: "Kempele", value: { region: "Kempele", all: 1331, foreign: 6 } },
 // ];
-
-const FOREIGN_AVG = 13.91;
